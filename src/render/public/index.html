@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electron Aclas Cmake</title>
+  <link rel="stylesheet" href="./css/bootstrap.4.5.3.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+  <div id="root">
+    <div class="p-3">
+      <button class="btn btn-primary" @click="dispatchDZC">下发电子称</button>
+      <hr>
+      <div class="panel">
+        <div v-for="item, idx of dispatchResult">
+          <span class="badge badge-info">{{ item.mode }}</span>
+          <span class="badge badge-secondary">{{ item.code }}</span>
+          <span class="badge badge-warning">{{ item.index }} / {{ item.total }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/vue.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

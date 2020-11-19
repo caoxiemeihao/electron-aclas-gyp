@@ -1,0 +1,2 @@
+ID	ItemCode	DepartmentID	Name1	Price	UnitID	BarcodeType1	BarcodeType2	Label1ID	ProducedDate	ValidDate
+4106	4106	24	Ô­Î¶¹Ï×Ó	15.98	4	7	7	3	2020/11/19 16:54:54	10
