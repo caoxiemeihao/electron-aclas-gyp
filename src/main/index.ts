@@ -23,9 +23,20 @@ function bootstrap() {
 }
 
 function ipcHandle() {
+  let lastData = {}
+  let lastDate = Date.now()
   ipcMain.handle('dispatch-DZC', (event, arg0 = {}) => {
     aclas(arg0, data => {
-      event.sender.send('dispatch-DZC-res', data)
+      if (data.total >= 100) { // 优化大批量下发进程通讯消息堆积
+        lastData = data
+        const now = Date.now()
+        if (now - lastDate >= 99) { // 延迟 99 毫秒
+          lastDate = now
+          event.sender.send('dispatch-DZC-res', lastData)
+        }
+      } else {
+        event.sender.send('dispatch-DZC-res', data)
+      }
     })
   })
 }
