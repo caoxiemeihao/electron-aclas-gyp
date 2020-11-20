@@ -27,6 +27,10 @@ function ipcHandle() {
   let lastDate = Date.now()
   ipcMain.handle('dispatch-DZC', (event, arg0 = {}) => {
     aclas(arg0, data => {
+      event.sender.send('dispatch-DZC-res', data)
+
+      return
+
       if (data.total >= 100) { // 优化大批量下发进程通讯消息堆积
         lastData = data
         const now = Date.now()
