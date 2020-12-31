@@ -116,7 +116,7 @@ void Start(char* host, UINT32 proceType, char* filename, char* dll = "AclasSDK.d
 	DebugLog(filename);
 	DebugLog(dll);
 
-	HMODULE hModule = LoadLibrary(TEXT(dll));
+	HMODULE hModule = LoadLibrary(dll); // LoadLibrary(TEXT(dll)) 无 TEXT("") 的在编译时 编译成ASCII码，加上_T()或TEXT（）编译成UNICODE
 
 	if (!hModule) {
 		Stdout2Nodejs(404, 0, 0);
@@ -179,14 +179,14 @@ void RunCallback(const Napi::CallbackInfo &info) {
 	char host[100];
 	UINT32 proceType;
 	char filename[200];
-	char dll_path[200];
+	char dll_path[200] = "Win64/AclasSDK.dll";
 
 	// 转换 js 入参
 	napi_get_value_string_utf8(env, n_host, host, sizeof(host), NULL);
 	napi_get_value_uint32(env, n_type, &proceType);
 	napi_get_value_string_utf8(env, n_filename, filename, sizeof(filename), NULL);
-	napi_get_value_string_utf8(env, n_dll_path, dll_path, sizeof(dll_path), NULL);
 
+	if (!n_dll_path.IsUndefined()) napi_get_value_string_utf8(env, n_dll_path, dll_path, sizeof(dll_path), NULL);
 	if (!n_debug.IsUndefined()) g_debug = n_debug.ToBoolean();
 	if (!n_extra.IsUndefined()) napi_get_value_string_utf8(env, n_extra, g_extra, sizeof(g_extra), NULL);
 
